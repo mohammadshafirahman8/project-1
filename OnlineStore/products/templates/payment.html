@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block title %}
+   Payment
+{% endblock %}
+
+{% block content %}
+    <div class="'container mt-5">
+        <h2>Complete Your Payment</h2>
+        <p>Total Amount: ${{ order.total_price }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label>
+                <input type="radio" name="payment_method" value="COD" required>Cash on Delivery
+            </label><br>
+            <label>
+                <input type="radio" name="payment_method" value="Online" required>Online payment
+            </label><br>
+            <button type="submit" class="btn btn-success mt-3">Proceed to pay</button>
+        </form>     
+    </div>
+{% endblock %}

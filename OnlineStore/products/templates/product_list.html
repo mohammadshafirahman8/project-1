@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product_list</title>
+</head>
+<body>
+   <h2>product_list</h2> 
+   {% for product in products %}
+      <div>
+        <img src="{{ product.image.url}}" width="100">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <p>price: ${{ product.price }} </p>
+        <p>stocks: {{ product.stock }}</p>
+        <a href="{% url 'add_cart' product.id %}">add cart</a>
+
+        {% if user.is_superuser %}
+        <a href="{% url 'update_product' product.id %}">update</a>
+        <a href="{% url 'delete_product' product.id %}">delete</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+</body>
+</html>

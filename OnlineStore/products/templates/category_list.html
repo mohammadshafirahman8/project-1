@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block title %}
+   category list
+{% endblock %}
+
+{% block content %}
+    <h2>category_list</h2>
+    {% for category in categories %}
+    <div>
+        <ul>
+            <li><a href="?category_id={{ category.id }}">{{ category.name }}</a></li>
+        </ul>
+    </div>
+    {% endfor %}
+    {% if products %}
+        <h2>products</h2>
+        <ul>
+            {% for product in products %}
+               <li>{{ product.name }} - ${{ product.price }}</li>
+            {% empty %}
+               <li>no products not found in this category</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

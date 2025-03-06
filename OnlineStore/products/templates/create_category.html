@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block title %}
+   Add Category
+{% endblock %}
+
+{% block content %}
+    <h2>Add Category</h2>
+    <form method="POST" enctype="'multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>Create Category</button>
+    </form>
+    
+{% endblock %}

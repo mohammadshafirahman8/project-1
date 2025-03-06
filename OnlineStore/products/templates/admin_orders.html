@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% block title %}
+admin orders Cart_list
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2>All Orders</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Payment Method</th>
+                <th>Payment Status</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in order %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.user.username }}</td>
+                <td>${{ order.total_price }}</td>
+                <td>
+                    <form method="POST" action="{% url 'update_order_status' order.id %}">
+                        {% csrf_token %}
+                        <select name="status" class="form-select" onchange="this.form.submit()">
+                            {% for status, label in order.STATUS_CHOICES %}
+                                <option value="{{ status }}" {% if order.status == status %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </td>
+                <td>{{ order.payment.payment_method }}</td>
+                <td>
+                    <form method="POST" action="{% url 'update_order_status' order.id %}">
+                        {% csrf_token %}
+                        {% if order.payment.payment_method == "COD" %}
+                            <select name="payment_status" class="form-select" onchange="this.form.submit()">
+                                {% for status, label in order.payment.PAYMENT_STATUS_CHOICES %}
+                                    <option value="{{ status }}" {% if order.payment.status == status %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        {% else %}
+                            <p>{{ order.payment.status }}</p>
+                        {% endif %}
+                    </form>
+                </td>
+                <td>{{ order.created_at|date:"d M Y, h:i A" }}</td>  <!-- Shows formatted date -->
+                <td>
+                    <a href="{% url 'update_order_status' order.id %}" class="btn btn-primary">Change Status</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

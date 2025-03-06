@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% block title %}
+   Order history
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Your orders</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>payment Status</th>
+                    <th>Ordered Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td>${{ order.total_price }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.payment.status }}</td>
+                        
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+{% endblock %}

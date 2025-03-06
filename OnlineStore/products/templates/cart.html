@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% block title %}
+   cart
+{% endblock %}
+
+{% block content %}
+    <h2>Cart_list</h2>
+    {% if carts %}
+        {% for item in carts %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>
+                <button> <a href="{% url 'increment_quantity' item.id %}">++</a> </button>
+                {{ item.quantity }}
+                <button>
+                <a href="{% url 'decrement_quantity' item.id %}">--</a></button>
+            </td>
+            <p>
+            <td>${{ item.product.price }}</td>
+            </p>
+           
+           
+        </tr>
+            <p>{{ item.product.name }} - ${{ item.product.price }} x {{ item.quantity }}</p>
+            <a href="{% url 'remove_cart' item.id %}">Remove this item</a>
+        {% endfor %}
+        <h2>Total Amount of all products</h2>
+        <p>Total: ${{ total }}</p>
+        <a href="{% url 'product_list' %}">Back to product list</a>
+        <br>
+        <p>
+            <button> <a href="{% url 'place_order' %}">place the order</a></button>
+    
+        </p>
+        <a href="{% url 'remove_all_cart' %}" class="'btn btn-danger"> Remove all</a>
+        
+    {% else %}
+        <p>Your cart is empty!</p>
+        <a href="{% url 'logout' %}">logout</a>
+    {% endif %}
+       
+{% endblock %}

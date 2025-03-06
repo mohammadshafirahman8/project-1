@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update_product</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>update_product</h2>
+
+        <form method="POST" unctype="multipart/form-data" class="border p-4 rounded shadow">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Update product</button>
+            <a href="{% url 'product_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div> 
+</body>
+</html>

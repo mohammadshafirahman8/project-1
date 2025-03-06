@@ -1,12 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-</head>
-<body>
+{% extends "index.html" %}
+{% block title %}
+   Hom
+{% endblock %}
+
+{% block content %}
     <h2>welcome</h2>
-    <a href="{% url 'logout'%}">Logout</a>
-</body>
-</html>
+    <a href="{% url 'product_list' %}"> product list</a>
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+    <p>
+        <button>
+            <a href="{% url 'category_list' %}">Category</a>
+        </button>
+    </p>
+    {% if user.is_superuser %}
+        <button>
+            <a href="{% url 'create_category' %}">click here to create category</a>
+        </button>
+        <button>
+            <a href="{% url 'create_product' %}">click here to create products</a>
+        </button>
+        <button>
+            <a href="{% url 'all_orders' %}"> click here to see all products</a>
+        </button>
+
+    {% endif %}
+{% endblock %}
